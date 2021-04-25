@@ -1,0 +1,16 @@
+.login_background{
+    background-image: url("/static/pics/garden.jpeg");
+    background-color: #b0d7c5;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+}
+
+.login_frost{
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(20px);
+    border-radius: 5px;
+    padding: 10px;
+}
