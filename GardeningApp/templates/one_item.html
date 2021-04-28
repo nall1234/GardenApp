@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Item</title>
+</head>
+<body>
+    <img src="{{ one_item.item_photo.url }}">
+    <h2> {{one_item.item_title }}</h2>
+    <p> {{one_item.item_description }}</p>
+    <p>${{ one_item.price }}</p>
+    <p> Posted by: {{ one_item.item_owner.first_name }} {{ one_item.item_owner.last_name }}</p>
+    <form action="/market/{{ one_item.id }}/add" method="POST">
+        {% csrf_token %}
+        <p>Quantity:<input type="number" name="item_quantity"></p>
+        <input type="submit" value="Add To Cart">
+    </form>
+    <!-- {% if current_user.id == item.id %}
+    <a href="/market/{{ one_item.id }}/edit"><button>Edit</button></a>
+    {% endif %} -->
+</body>
+</html>

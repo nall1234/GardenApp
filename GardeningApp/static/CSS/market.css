@@ -1,0 +1,43 @@
+*{
+    margin:0px;
+    padding:0px
+}
+
+/* Title and Nav Bar */
+.header{
+    padding:15px;
+    width: inherit;
+    background-color: rgba(7, 189, 202, 0.219);
+}
+
+    .header h1 {
+        display:inline-block;
+        margin-left: 2%;
+    }
+
+.nav_link{
+    display: inline-block;
+    vertical-align: inherit;
+    margin-left: 30%;
+}
+
+    .nav_link h4{
+        display: inline-block;
+        width: auto; 
+        margin-left: 60px;
+    }
+
+/* Item Post (Left Side) */
+
+.post_item{
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+/* Shopping (Right Side) */
+.shopping{
+    width:50%;
+    display: inline-block;
+}
