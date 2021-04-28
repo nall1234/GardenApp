@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+</head>
+<body>
+    <div class="post_item">
+        <h1>Update: {{ one_item.item_title }}</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <!-- Edit Item for Sale-->
+        <form action="/market/{{ one_item.id }}/update" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>
+                <p><input type="text" name="item_title" placeholder="Item Title" value="{{ one_item.item_title }}"></p>
+            </label>
+            <label><textarea name="item_description" placeholder="Item description" cols="30"
+                    rows="10">{{ one_item.item_description }}</textarea></label>
+            <label>
+                <p>Price:<input type="number" name="product_id" min="0.00" max="10000.00" step="0.01" name="product_id" value="{{ one_item.price }}">
+                </p>
+            </label>
+            <label>
+                <p>Quantity<input type="number" name="item_quantity" min=1 value="{{ one_item.item_quantity }}"></p>
+            </label>
+            <label>
+                <p><input type="file" name="item_photo" value=""></p>
+            </label>
+            <p><input type="submit" value="Submit"></p>
+        </form>
+    </div>
+</body>
+</html>

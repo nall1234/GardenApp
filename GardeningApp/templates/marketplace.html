@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/market.css' %}">
+    <title>Marketplace</title>
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="header">
+            <h1>GoodEarth</h1>
+            <div class="nav_link">
+                <h4><a href="/main">Home</a></h4>
+                <h4><a href="/market">Marketplace</a></h4>
+                <h4><a href="">Profile</a></h4>
+                <h4><a href="">Message Board</a></h4>
+                <h4><a href="/logout">Logout</a></h4>
+                <h4><a href="/market/cart">Cart</a></h4>
+            </div>
+        </div>
+        <div class="post_item">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            
+            <!-- Post Item for Sale (Left)-->
+            <h2> Welcome {{ current_user.first_name }} {{ current_user.last_name }}</h2>
+            <form action="/market/create" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>
+                    <p><input type="text" name="item_title" placeholder="Item Title"></p>
+                </label>
+                <label><textarea name="item_description" placeholder="Item description" cols="30"
+                        rows="10"></textarea></label>
+                <label>
+                    <p>Price:<input type="number" name="product_id" min="0.00" max="10000.00" step="0.01"
+                            name="product_id">
+                    </p>
+                </label>
+                <label>
+                    <p>Quantity<input type="number" name="item_quantity" min=1></p>
+                </label>
+                <label>
+                    <p><input type="file" name="item_photo"></p>
+                </label>
+                <p><input type="submit" value="Submit"></p>
+            </form>
+        </div>
+
+
+        <!-- View Items for Sale (Right) -->
+        <div class="shopping">
+            <h2>Shopping</h2>
+            {% for item in all_items %}
+            <img src="{{ item.item_photo.url }}">
+            <h4><label><a href="/market/{{item.id}}">{{ item.item_title }} </a></label></h4>
+            <p>${{ item.price }}</p>
+            <form action="/market/{{ item.id }}/add" method="POST">
+                {% csrf_token %}
+                <p>Quantity:<input type="number" name="item_quantity"></p>
+                <input type="submit" value="Add To Cart">
+            </form>
+
+            <!-- Delete / Edit item -->
+            {% if current_user.id == item.item_owner.id %}
+            <a href="/market/{{ item.id }}/edit"><button>Edit</button></a>
+            <form action="/market/{{item.id}}/delete" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Delete">
+            </form>
+            {% endif %}
+            {% endfor %}
+        </div>
+</body>
+
+</html>
