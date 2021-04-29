@@ -95,3 +95,33 @@ class Order(models.Model):
     # def __str__(self):
     #     return '{0} - {1}'.format(self.owner)
 
+
+# message board models
+class MessageValidator(models.Manager):
+    def message_validator(self, postData):
+        errors = {}
+        if len(postData['message']) < 2:
+            errors['message'] = 'Message must be at least 1 charaters long'
+        return errors
+
+class Message(models.Model):
+    message = models.TextField(max_length = 255)
+    message_creator = models.ForeignKey(User, related_name = "message", on_delete = models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add = True)
+    updated_on = models.DateTimeField(auto_now = True)
+    objects = MessageValidator()
+
+class CommentValidator(models.Manager):
+    def comment_validator(self, postData):
+        errors = {}
+        if len(postData['comment']) < 2:
+            errors['comment'] = 'Comment must be at least 1 charaters long'
+        return errors
+
+class Comment(models.Model):
+    comment = models.TextField(max_length = 255)
+    comment_message = models.ForeignKey(Message, related_name = 'message_comment', on_delete = models.CASCADE)
+    comment_creator = models.ForeignKey(User, related_name = 'created_comment', on_delete = models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add = True)
+    updated_on = models.DateTimeField(auto_now = True)
+    objects = CommentValidator()

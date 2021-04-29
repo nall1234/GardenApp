@@ -78,9 +78,10 @@ def update(request, current_user):
 def market(request):
     if 'current_user' not in request.session:
         return redirect('/')
+    user = User.objects.get(id=request.session['current_user'])
     context = {
-        'current_user': User.objects.get(id=request.session['current_user']),
-        'all_items': Item.objects.all()
+        "user": user,
+        "image": user.image
     }
     return render(request, 'marketplace.html', context)
 
@@ -152,6 +153,7 @@ def my_cart(request):
     all_orders = user.users_order.filter(is_ordered = False)
     order = all_orders[0]
     context = {
+        'user' : user,
         "order_items" : order.items.all()
     }
     return render(request, 'cart.html', context)
@@ -190,31 +192,6 @@ def add_cart(request, item_id):
     return redirect('/market')
 
 
-# ------Add Cart Code from 4/27 session (Evan & Caitlyn)-----
-        #  establish user 
-        # user = User.objects.get(id= request.session['current_user'])
-        # new_item = OrderItem.objects.create(cart_item=request.POST['cart_item'], cart_quantity=request.POST['cart_quantity'], users_that_added=user)
-        # #establish if there is an order open 
-        # current_orders = User.order.filter(is_ordered=False)
-        # one_order = current_orders[0]
-        # if one_order:
-        #     if one_order.items.filter(items.order_item.item.id = request.POST['cart_item.id']new_item.item.id):
-        #         item.quantity = item.quantity+new_item.quantity
-        #     else:
-        #         one_order.items.add(new_item)
-        # return redirect('/market')
-
-
-        # if an order is open, first check to see if item is already in cart, if not then create order item
-        # add to cart 
-        # else, add to quantity on order
-        # then create order item 
-        # add to cart 
-        # item = Item.objects.create(item_title=request.POST['item_title'], item_description=request.POST['item_description'], price= request.POST['product_id'], item_photo= request.FILES['item_photo'], item_quantity=request.POST['item_quantity'], item_owner = User.objects.get(id=request.session['current_user']))
-        # request.session['item_id'] = item.id
-        # messages.success(request, "Item created")
-        # return redirect('/market')
-
 
 #-----REMOVE FROM CART-----
 def remove_cart(request, item_id):
@@ -227,3 +204,54 @@ def remove_cart(request, item_id):
 #-----CHECKOUT-----
 def checkout(request):
     pass
+
+
+# message board views 
+
+def community(request):
+    if  'current_user' not in request.session:
+        return redirect("/")
+    else:        
+        context = {
+            "user" : User.objects.get(id = request.session['current_user']),
+            'messages': Message.objects.all(),
+            'comments': Comment.objects.all(),
+        }
+    return render(request, 'community.html', context)
+
+def add_message(request):
+    user = User.objects.get(id= request.session['current_user'])
+    errors = Message.objects.message_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/community')
+    Message.objects.create(
+        message = request.POST['message'],
+        message_creator = User.objects.get(id= request.session['current_user'])
+    )
+    return redirect('/community')
+
+
+def delete_message(request, message_id):
+    message = Message.objects.get(id= message_id)
+    message.delete()
+    return redirect('/community')
+
+def add_comment(request, id):
+    errors = Comment.objects.comment_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/community')
+    Comment.objects.create(
+        comment = request.POST['comment'],
+        comment_message = Message.objects.get(id =id),
+        comment_creator = User.objects.get(id=request.session['current_user'])
+    )
+    return redirect('/community')
+
+def delete_comment(request, comment_id):
+    comment = Comment.objects.get(id= comment_id)
+    comment.delete()
+    return redirect('/community')
