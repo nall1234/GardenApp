@@ -44,7 +44,35 @@ def register(request):
         return redirect("/")
 
 def main(request):
-    return render(request, 'main.html')
+    user = User.objects.get(id=request.session['current_user'])
+    context = {
+        "user": user,
+        "image": user.image
+    }
+    return render(request, 'main.html', context)
+
+def profile(request, current_user):
+    user = User.objects.get(id=request.session['current_user'])
+    context = {
+        "user": user,
+        "image": user.image
+    }
+    return render(request, 'profile.html', context)
+
+def update(request, current_user):
+    # errors = User.objects.edit_validator(request.POST)
+    # if len(errors) > 0:
+    #     for key, value in errors.items():
+    #         messages.error(request, value)
+    #     return redirect('update', current_user=current_user)
+    # else:
+    user = User.objects.get(id=request.session['current_user'])
+    user.first_name = request.POST['first_name']
+    user.last_name = request.POST['last_name']
+    user.email = request.POST['email']
+    user.image = request.FILES['image']
+    user.save()
+    return redirect('profile', current_user=current_user)
 
 # -----MARKETPLACE-----
 def market(request):
