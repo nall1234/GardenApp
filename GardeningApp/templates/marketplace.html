@@ -62,7 +62,7 @@
         <div class="shopping">
             <h2>Shopping</h2>
             {% for item in all_items %}
-            <img src="{{ item.item_photo.url }}">
+            <img src="{{ item.item_photo.url }}" height="100px">
             <h4><label><a href="/market/{{item.id}}">{{ item.item_title }} </a></label></h4>
             <p>${{ item.price }}</p>
             <form action="/market/{{ item.id }}/add" method="POST">

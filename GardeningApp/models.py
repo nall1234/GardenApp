@@ -60,7 +60,7 @@ class Item(models.Model):
     item_title = models.CharField(max_length=20)
     item_description = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    item_photo = models.ImageField(null=True, blank=True, upload_to = "items/", default='items/blank.jpg')
+    item_photo = models.ImageField(null = True, blank = True, upload_to = "items/", default='items/blank.jpg')
     item_quantity = models.IntegerField(default=1)
     item_owner = models.ForeignKey(User, related_name="items_owned", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add = True) 
@@ -71,9 +71,8 @@ class Item(models.Model):
 #-----Order Items-----
 # refrences a specific item
 class OrderItem(models.Model):
-    product = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     cart_item = models.ForeignKey(Item, related_name="items_in_cart", on_delete=models.CASCADE)
-    users_that_added = models.ManyToManyField(User, related_name="item_user_added")
+    users_that_added = models.ForeignKey(User, related_name="item_user_added", on_delete=models.CASCADE)
     cart_quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add = True) 
     updated_at = models.DateTimeField(auto_now=True)

@@ -147,29 +147,47 @@ def delete_item(request, item_id):
     return redirect('/market')
 
 
-#-----MY CART-----
 def my_cart(request):
-    return render(request, 'cart.html')
+    user =  User.objects.get(id= request.session['current_user'])
+    all_orders = user.users_order.filter(is_ordered = False)
+    order = all_orders[0]
+    context = {
+        "order_items" : order.items.all()
+    }
+    return render(request, 'cart.html', context)
 
 #-----ADD TO CART-----
-def add_cart(request):
-    # if 'current_user' not in request.session:
-    #     return redirect('/')
-    # if request.method =="POST":
+def add_cart(request, item_id):    
+    if 'current_user' not in request.session:
+        return redirect('/')
+    if request.method =="POST":
     #     # get user object
-    #     user = User.objects.get(id= request.session['current_user'])
-    #     # get item id
-    #     item = Item.object.filter(id=item_id.get.first())
-    #     # create OrderItem 
-    #     order_item = OrderItem.objects.get_or_create(item=item)
-    #     # create Order associated with user
-    #     user_order = Order.objects.get_or_create(owner=user_profile)
-    #     # adding OrderItem to user_order.items.add(order_item)
-    #     user_order.items.add(order_item)
-    #     # save user_order
-    #     user_order.save()
-    # return redirect(request, '/market')
-    pass
+        user = User.objects.get(id= request.session['current_user'])
+        #   # get item id
+        quantity = request.POST['item_quantity']
+        item = Item.objects.get(id = item_id)
+        order_item = OrderItem.objects.create(
+            cart_item= item,
+            users_that_added = user,
+            cart_quantity = request.POST['item_quantity'],
+        )        
+        all_orders = user.users_order.filter(is_ordered = False)
+        if all_orders:
+            current_order = all_orders[0]
+            if current_order.items.filter(cart_item = item):
+                current_item = current_order.items.get(cart_item = item)
+                current_item.cart_quantity = int(current_item.cart_quantity) + int(quantity)
+                current_item.save()
+                return redirect('/market')
+            else:
+                current_order.items.add(order_item)
+        else:
+            new_order = Order.objects.create(
+                owner = user
+            )
+            new_order.items.add(order_item)
+            new_order.save()    
+    return redirect('/market')
 
 
 # ------Add Cart Code from 4/27 session (Evan & Caitlyn)-----
