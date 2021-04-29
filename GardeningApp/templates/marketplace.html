@@ -47,7 +47,7 @@
             {% endif %}
 
             <!-- Post Item for Sale (Left)-->
-            <h2> Welcome {{ current_user.first_name }} {{ current_user.last_name }}</h2>
+            <h2> Welcome {{ user.first_name }} {{ user.last_name }}</h2>
             <form action="/market/create" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <label>
@@ -74,7 +74,7 @@
         <!-- View Items for Sale (Right) -->
         <div class="shopping">
             <h2>Shopping</h2>
-            {% for item in all_items %}
+            {% for item in items %}
             <img src="{{ item.item_photo.url }}" height="100px">
             <h4><label><a href="/market/{{item.id}}">{{ item.item_title }} </a></label></h4>
             <p>${{ item.price }}</p>
@@ -85,7 +85,7 @@
             </form>
 
             <!-- Delete / Edit item -->
-            {% if current_user.id == item.item_owner.id %}
+            {% if user.id == item.item_owner.id %}
             <a href="/market/{{ item.id }}/edit"><button>Edit</button></a>
             <form action="/market/{{item.id}}/delete" method="POST">
                 {% csrf_token %}

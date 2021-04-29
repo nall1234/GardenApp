@@ -80,6 +80,7 @@ def market(request):
         return redirect('/')
     user = User.objects.get(id=request.session['current_user'])
     context = {
+        "items" : Item.objects.all(),
         "user": user,
         "image": user.image
     }
