@@ -1,0 +1,126 @@
+* {
+    padding: 0px;
+    margin: 0px
+}
+
+ul {
+    margin: 0px;
+    padding: 10px;
+    position: sticky;
+    background-color: #fffaef;
+    text-decoration: none;
+    border-bottom: 1px solid #bbb
+}
+
+li{
+    display: inline;
+    border-right: 1px solid #bbb;
+}
+
+li a {
+    color: #666;
+    text-decoration: none;
+    margin: 10px;
+    font-size: 12px;
+    font-family: 'Playfair Display', serif;
+}
+
+.logo {
+    font-family: 'Satisfy', cursive;
+    color: #f0c3be;
+    font-size: 20px;
+    text-shadow:1px 1px #666;
+    border-right: none;
+    margin-right: 10px
+}
+
+.all {
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background-color: #426F42;
+}
+
+h3 {
+    color: #0c1f25;
+    font-family: 'Playfair Display', serif;
+}
+
+form label{
+    color: #4e6d65;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+}
+
+input {
+    border-color:#4e6d65;
+    background-color: #decece;
+    color: #4e6d65;
+}
+
+input[value="{{user.first_name}}"] {
+    color: #4e6d65;
+}
+
+
+.btn {
+    background-color: #f0c3be;
+    border-color: #4e6d65;
+    box-shadow: 2px 2px 2px#0c1f25;
+    color: #0c1f25;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.container {
+    background-color:#fffaef;
+}
+
+.background{
+    background-image: url("/static/pics/dark-green-and-pink-floral-plain.jpeg");
+    background-color: #b0d7c5;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+    padding: 50px
+}
+
+p {
+    color: #4e6d65;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    text-align: center
+}
+
+.top {
+    text-align: center
+}
+
+.scroll {
+    height: 350px;
+    overflow: auto
+}
+
+.first {
+    margin-top: -50px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    text-align: center;
+    color: #fffaef
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    margin-left: 60px;
+    margin-top: -20px
+}
+
+.profile {
+    width: 200px;
+}

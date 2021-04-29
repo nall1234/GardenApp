@@ -8,6 +8,8 @@ urlpatterns = [
     path('logout', views.logout),
     path('register', views.register),
     path('main', views.main),
+    path('profile/<int:current_user>', views.profile, name="profile"),
+    path('update/<int:current_user>', views.update, name="update"),
     #-----MARKETPLACE-----
     path('market', views.market),
     path('market/create', views.create_item),

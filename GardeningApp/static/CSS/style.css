@@ -1,16 +1,71 @@
 .login_background{
-    background-image: url("/static/pics/garden.jpeg");
+    background-image: url("/static/pics/photo-1496661415325-ef852f9e8e7c.webp");
+    /* background-image: url("photo-1496661415325-ef852f9e8e7c.webp"); */
     background-color: #b0d7c5;
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
     color: white;
+    padding: 100px
 }
 
-.login_frost{
-    background-color: rgba(255, 255, 255, .15);  
-    backdrop-filter: blur(20px);
-    border-radius: 5px;
-    padding: 10px;
+.welcome {
+    margin-bottom: -20px
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .login_frost {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(5px);
+        padding: 20px;
+        border-radius: 5px;
+    }
+}
+
+h2, .btn{
+    color: #68c2ab;
+    /* text-shadow: 1px 1px 1px#cae6ef; */
+    font-family: 'Playfair Display', serif;
+    font-weight: bold
+}
+
+label {
+    color: #cae6ef;
+    font-size: 13px;
+    font-family: 'Poppins', 'sans-serif';
+}
+
+input[type=text], input[type=password]{
+    color:#3b5b42;
+    background-color: white;
+}
+
+.mont {
+    font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: #fffaef
+}
+
+.logo {
+    font-family: 'Satisfy', cursive;
+    color: #f0c3be;
+    font-size: 60px;
+    text-shadow: 1px 1px 5px #3b5b42
+    /* text-shadow:1px 1px #fffaef; */
+}
+
+.btn {
+    background-color: #fffaef;
+    color: #68c2ab;
+    border: 1px solid #68c2ab;
+    box-shadow: 2px 2px 1px #68c2ab
+
+    /* background-color: #f0c3be;
+    border: 1px solid #641d0d;
+    color: #641d0d;
+    box-shadow: 2px 2px 2px #641d0d; */
+    /* font-family: 'Satisfy', cursive; */
 }
