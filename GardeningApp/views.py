@@ -184,17 +184,23 @@ def add_cart(request, item_id):
     if 'current_user' not in request.session:
         return redirect('/')
     if request.method =="POST":
+        errors = Item.objects.quantity_validator(request.POST)
+        if len(errors) != 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/market')
     #     # get user object
-        user = User.objects.get(id= request.session['current_user'])
-        #   # get item id
-        quantity = request.POST['item_quantity']
-        item = Item.objects.get(id = item_id)
-        order_item = OrderItem.objects.create(
-            cart_item= item,
-            users_that_added = user,
-            cart_quantity = request.POST['item_quantity'],
-        )        
-        all_orders = user.users_order.filter(is_ordered = False)
+        else:
+            user = User.objects.get(id= request.session['current_user'])
+            #   # get item id
+            quantity = request.POST['item_quantity']
+            item = Item.objects.get(id = item_id)
+            order_item = OrderItem.objects.create(
+                cart_item= item,
+                users_that_added = user,
+                cart_quantity = request.POST['item_quantity'],
+            )        
+            all_orders = user.users_order.filter(is_ordered = False)
         if all_orders:
             current_order = all_orders[0]
             if current_order.items.filter(cart_item = item):
@@ -250,7 +256,7 @@ def remove_cart(request, order_item_id):
     # save order
     current_order.save()
     
-    return redirect('/market')
+    return redirect('/market/cart')
 
 #-----CHECKOUT-----
 def checkout(request):
@@ -263,9 +269,10 @@ def checkout(request):
 
     request.session['activities'].append('Checked out')
     request.session.modified = True
+    messages.success(request, "Thank you! Order has been placed")
 
 
-    return redirect('/market')
+    return redirect('/market/cart')
 
 
 # message board views 

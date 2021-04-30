@@ -55,6 +55,11 @@ class ItemManager(models.Manager):
         #     errors['item_photo'] = "Photo is required"
         return errors
 
+    def quantity_validator(self, reqPOST):
+        errors = {}
+        if len(reqPOST['item_quantity']) == 0:
+            errors['item_quantity'] = "Please select at least 1 item"
+        return errors
 
 class Item(models.Model):
     item_title = models.CharField(max_length=20)
@@ -67,7 +72,7 @@ class Item(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = ItemManager()
 
-#-----Order Items-----
+#-----ORDER ITEMS-----
 # refrences a specific item
 class OrderItem(models.Model):
     cart_item = models.ForeignKey(Item, related_name="items_in_cart", on_delete=models.CASCADE)
@@ -85,14 +90,6 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # def get_cart_items(self):
-    #     return self.items.all()
-
-    # def get_cart_total(self):
-    #     return sum([item.product.price for item in self.items.all()])
-
-    # def __str__(self):
-    #     return '{0} - {1}'.format(self.owner)
 
 
 # message board models
