@@ -41,7 +41,11 @@
                 <h4>{{ item.cart_item.item_title }} </h4>
                 <p>${{ item.cart_item.price }}</p>
                 <p>Quantity: {{ item.cart_quantity }}</p>            
-    
+                
+                <form action="/market/{{ item.id }}/remove" method="POST">
+                    {% csrf_token %}
+                    <button type='submit' class='btn btn-secondary btn-sm float-right'>delete from cart</button>
+                </form><br>
                 {% endfor %}
         <table>
             <thead>
@@ -54,6 +58,9 @@
             <tbody>
             </tbody>
         </table>
-        <a href="/market"><button>Checkout</button></a>
+        <form action="/market/checkout" method="POST">
+            {% csrf_token %}
+            <button type='submit' class='btn btn-secondary' >Checkout</button>
+        </form><br>
     </body>
     </html>
