@@ -26,7 +26,8 @@
                     <ul>
                         <li><span class="logo">GoodEarth</span></li>
                         <li style="float:right"><a href="../../logout">Logout</a></li>
-                        <li style="float:right"><a href="about.asp">Message Board</a></li>
+                        <li style="float:right"><a href="../market/cart">Cart</a></li>
+                        <li style="float:right"><a href="../community">Message Board</a></li>
                         <li style="float:right"><a href="../../profile/{{ user.id }}">Profile</a></li>
                         <li style="float:right"><a href="../../market">MarketPlace</a></li>
                         <li style="float:right"><a href="../../main"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -72,30 +73,17 @@
                                 <label for="email">Email address:</label>
                                 <input type="text" class="form-control" name='email' value="{{ user.email }}">
                                 <label for="image">Profile picture:</label>
-                                <input type="file" class="form-control" name="image" accept="image/*"><br>
+                                <input type="file" alt=" " class="form-control" name="image" accept="image/*"><br>
                                 <button type="submit" class="btn btn-primary px-4 float-right">Update</button>
                             </form>
                         </div>
 
                         <div class="col-sm-4 scroll">
-                            <p>Recently added flora</p>
-                            <p>I'm growing carrots</p>
-                            <p>Started growing roses</p>
-                            <p>Started growing roses</p>
-                            <p>Recently bought items</p>
-                            <p>Recently sold items</p>
-                            <p>Recently added flora</p>
-                            <p>I'm growing carrots</p>
-                            <p>Started growing roses</p>
-                            <p>Started growing roses</p>
-                            <p>Recently bought items</p>
-                            <p>Recently sold items</p>
-                            <p>Recently added flora</p>
-                            <p>I'm growing carrots</p>
-                            <p>Started growing roses</p>
-                            <p>Started growing roses</p>
-                            <p>Recently bought items</p>
-                            <p>Recently sold items</p>
+                            <div class="activities">
+                                {% for log in request.session.activities %}
+                                        <p>{{ log }}</p>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>

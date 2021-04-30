@@ -1,9 +1,10 @@
 * {
     padding: 0px;
-    margin: 0px
+    margin: 0px;
 }
 
 ul {
+    width: 100%;
     margin: 0px;
     padding: 10px;
     position: sticky;
@@ -41,7 +42,7 @@ li a {
 .img {
     width: 20px;
     height: 20px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     background-color: green
 }
 
@@ -60,36 +61,36 @@ li a {
     padding: 30px;
     background-color: #fffaef;
     color: black;
+    width: 100%
 }
 
 .messages {
-    margin-top: 60px
+    margin-top: 20px
 }
 
 .box {
-    border: 1px solid black;
     height: 100px;
     width: 100px;
+    margin-right: 20px;
 }
 
 .boxbox {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 60px;
 }
 
 .image {
     width: 200px;
     height: 200px;
-    border: 1px solid black;
-    margin-left: 45px
+    margin-left: 62px;
 }
 
 .first {
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
-    text-align: center
+    text-align: center;
+    margin-top: -30px
 }
 
 h3, h1 {
@@ -100,4 +101,71 @@ h3, h1 {
 
 p {
     font-family: 'Poppins', sans-serif;
+}
+
+.item_photo {
+    width: 100px;
+    max-height: 100px;
+    margin-right: 20px;
+}
+
+.scroll {
+    width: 600px;
+    overflow: auto
+}
+
+.profile {
+    width: 200px;
+}
+
+.message {
+    width: 150px;
+    height: 100px;
+    overflow-x: wrap;
+    overflow-y: auto;
+    margin-right: 20px;
+}
+
+.btn {
+    background-color: #fffaef;
+    color: #68c2ab;
+    border: 1px solid #68c2ab;
+    box-shadow: 2px 2px 1px #68c2ab;
+}
+
+.post_message {
+    margin-bottom: 30px
+}
+
+.post_message textarea {
+    width: 600px
+}
+
+.post {
+    display: inline-block
+}
+
+.post_comment {
+    margin-top: 50px;
+    display: inline-block
+}
+
+.comments {
+    margin-top: 10px;
+    display: inline-block;
+    width: 100%
+}
+
+.posted_message {
+    display: inline-block;
+    width: 100%;
+}
+
+.right {
+    float: right
+}
+
+h4, h5 {
+    font-family: 'Playfair Display', serif;
+    color: #7e0106
 }
