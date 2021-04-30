@@ -49,11 +49,13 @@ def register(request):
 
 def main(request):
     user = User.objects.get(id=request.session['current_user'])
+    items = Item.objects.order_by('-created_at')[:5]
+    messages = Message.objects.order_by('-created_on')[:3]
     context = {
         "user": user,
         "image": user.image,
-        "items": Item.objects.all(),
-        "messages": Message.objects.all()
+        "items": items,
+        "messages": messages,
     }
     return render(request, 'main.html', context)
 
@@ -263,13 +265,16 @@ def checkout(request):
     user = User.objects.get(id= request.session['current_user'])
     # find order
     all_orders = user.users_order.filter(is_ordered = False)
-    current_order = all_orders[0]
-    current_order.is_ordered = True
-    current_order.save()
+    if all_orders:
+        current_order = all_orders[0]
+        current_order.is_ordered = True
+        current_order.save()
 
-    request.session['activities'].append('Checked out')
-    request.session.modified = True
-    messages.success(request, "Thank you! Order has been placed")
+        request.session['activities'].append('Checked out')
+        request.session.modified = True
+        messages.success(request, "Thank you! Order has been placed")
+    else:
+        messages.success(request, "There is nothing in your cart")
 
 
     return redirect('/market/cart')

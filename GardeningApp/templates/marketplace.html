@@ -81,10 +81,11 @@
 
             <div class="row">
                 <div class="col-sm-12 shopping">
-                    {% for item in items %}
+                    {% for item in items reversed %}
                         <div class="item">
                             <div class="pic"><img class="itempic" src="{{ item.item_photo.url }}"></div>
                             <h4><a href="/market/{{item.id}}">{{ item.item_title }} </a></h4>
+                            <p><span class="bold">Quantity Available:</span> {{ item.item_quantity }}</p>
                             <p><span class="bold">Price:</span> ${{ item.price }}</p>
                             <form action="/market/{{ item.id }}/add" method="POST">
                                 {% csrf_token %}
