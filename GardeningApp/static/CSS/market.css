@@ -3,29 +3,86 @@
     padding:0px
 }
 
+.wrapper {
+    padding: 50px;
+    width: 100%
+}
 /* Title and Nav Bar */
-.header{
-    padding:15px;
-    width: inherit;
-    background-color: rgba(7, 189, 202, 0.219);
+ul {
+    width: 100%;
+    margin: 0px;
+    padding: 10px;
+    position: sticky;
+    background-color: #fffaef;
+    text-decoration: none;
+    border-bottom: 1px solid #bbb
 }
 
-    .header h1 {
-        display:inline-block;
-        margin-left: 2%;
-    }
-
-.nav_link{
-    display: inline-block;
-    vertical-align: inherit;
-    margin-left: 30%;
+.bold {
+    font-weight: bold
 }
 
-    .nav_link h4{
-        display: inline-block;
-        width: auto; 
-        margin-left: 60px;
-    }
+li{
+    display: inline;
+    border-right: 1px solid #bbb;
+}
+
+li a {
+    color: #666;
+    text-decoration: none;
+    margin: 10px;
+    font-size: 12px;
+    font-family: 'Playfair Display', serif;
+}
+
+.logo {
+    font-family: 'Satisfy', cursive;
+    color: #f0c3be;
+    font-size: 20px;
+    text-shadow:1px 1px #666;
+    border-right: none;
+    margin-right: 10px
+}
+
+.back{
+    background-image: url("/static/pics/photo-1542333039085-b638f7941a06.webp");
+    background-color: #b0d7c5;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+    padding: 50px
+}
+
+.container {
+    background-color: #fffaef;
+    color: black;
+    padding: 30px
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+    margin-left: 60px;
+    margin-top: -20px;
+    margin-top: 50px
+
+}
+
+.itempic {
+    height:201px;
+    max-width: 319px
+}
+
+.profile {
+    height: 200px;
+    max-width: 300px;
+}
+
+.navbar {
+    border-right: 1px solid #bbb
+}
 
 /* Item Post (Left Side) */
 
@@ -38,6 +95,50 @@
 
 /* Shopping (Right Side) */
 .shopping{
-    width:50%;
-    display: inline-block;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 20px
+}
+
+.item {
+    margin-left: 20px;
+    margin-top: 50px
+}
+
+.center {
+    text-align: center
+}
+
+.btn {
+    background-color: #fffaef;
+    color: #b1744b;
+    border: 1px solid #b1744b;
+    box-shadow: 2px 2px 1px #8a5938;
+    text-align: center;
+    margin-top: 5px
+}
+
+h2, h4 a {
+    color: #9a85a5;
+    font-family: 'Playfair Display', serif;
+
+}
+
+.btn-xs {
+    background-color: #fffaef;
+    color: #b1744b;
+    border: 1px solid #b1744b;
+    box-shadow: 2px 2px 1px #8a5938;
+    text-align: center;
+    margin: auto;
+    margin-top: 5px;
+    font-size: 10px
+}
+
+.pic {
+    height: 201px;
+    width: 319px;
+    text-align: center
 }

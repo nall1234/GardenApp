@@ -5,20 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>One Item</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Satisfy&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/one_item.css' %}">
 </head>
 <body>
-    <img src="{{ one_item.item_photo.url }}">
-    <h2> {{one_item.item_title }}</h2>
-    <p> {{one_item.item_description }}</p>
-    <p>${{ one_item.price }}</p>
-    <p> Posted by: {{ one_item.item_owner.first_name }} {{ one_item.item_owner.last_name }}</p>
-    <form action="/market/{{ one_item.id }}/add" method="POST">
-        {% csrf_token %}
-        <p>Quantity:<input type="number" name="item_quantity"></p>
-        <input type="submit" value="Add To Cart">
-    </form>
-    <!-- {% if current_user.id == item.id %}
-    <a href="/market/{{ one_item.id }}/edit"><button>Edit</button></a>
-    {% endif %} -->
+    <div class="col-sm-12">
+        <ul>
+            <li><span class="logo">GoodEarth</span></li>
+            <li style="float:right"><a href="../../logout">Logout</a></li>
+            <li style="float:right"><a href="../../market/cart">Cart</a></li>
+            <li style="float:right"><a href="../../community">Message Board</a></li>
+            <li style="float:right"><a href="../../profile/{{ user.id }}">Profile</a></li>
+            <li style="float:right"><a href="../../market">MarketPlace</a></li>                    
+            <li style="float:right"><a href="../../main"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+            </svg></a></li>
+        </ul>
+    </div>
+    <div class="wrapper">
+        <div class="item">
+            <div class="pic"><img class="itempic" src="{{ one_item.item_photo.url }}"></div>
+            <h4>{{ one_item.item_title }}</h4>
+            <p><span class="bold">Price:</span> ${{ one_item.price }}</p>
+            <p><span class="bold">Posted by: </span>{{ one_item.item_owner.first_name }} {{ one_item.item_owner.last_name }}</p>
+
+            <form action="/market/{{ one_item.id }}/add" method="POST">
+                {% csrf_token %}
+                <p><span class="bold">Quantity: </span><input type="number" name="item_quantity"></p>
+                <input class="shop btn btn-xs center btn-primary px-4" type="submit" value="Add To Cart">
+            </form>
+        </div>
+    </div>
+    
 </body>
 </html>

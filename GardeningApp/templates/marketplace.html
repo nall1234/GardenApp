@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,87 +15,97 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Document</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'CSS/main.css' %}">
+
+    <link rel="stylesheet" href="{% static 'CSS/market.css' %}">
+
+
     <title>MarketPlace</title>
 
 </head>
 
 <body>
-    <div id="wrapper">
-        <div class="row">
-            <div class="col-sm-12">
-                <ul>
-                    <li><span class="logo">GoodEarth</span></li>
-                    <li style="float:right"><a href="../logout">Logout</a></li>
-                    <li style="float:right"><a href="../market/cart">Cart</a></li>
-                    <li style="float:right"><a href="../community">Message Board</a></li>
-                    <li style="float:right"><a href="../profile/{{ user.id }}">Profile</a></li>
-                    <li style="float:right"><a href="../market">MarketPlace</a></li>                    
-                    <li style="float:right"><a href="../main"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                        <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                    </svg></a></li>
-                </ul>
+
+    <div class="col-sm-12">
+        <ul>
+            <li><span class="logo">GoodEarth</span></li>
+            <li style="float:right"><a href="../logout">Logout</a></li>
+            <li style="float:right"><a href="../market/cart">Cart</a></li>
+            <li style="float:right"><a href="../community">Message Board</a></li>
+            <li style="float:right"><a href="../profile/{{ user.id }}">Profile</a></li>
+            <li style="float:right"><a href="../market">MarketPlace</a></li>                    
+            <li style="float:right"><a href="../main"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+            </svg></a></li>
+        </ul>
+    </div>
+    <div class="wrapper back">
+        <div class="container py4">
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                    <h2>Add an item</h2>
+                </div>
             </div>
-        </div>
-        <div class="post_item">
-            {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            <!-- Post Item for Sale (Left)-->
-            <h2> Welcome {{ user.first_name }} {{ user.last_name }}</h2>
-            <form action="/market/create" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <label>
-                    <p><input type="text" name="item_title" placeholder="Item Title"></p>
-                </label>
-                <label><textarea name="item_description" placeholder="Item description" cols="30"
-                        rows="10"></textarea></label>
-                <label>
-                    <p>Price:<input type="number" name="product_id" min="0.00" max="10000.00" step="0.01"
-                            name="product_id">
-                    </p>
-                </label>
-                <label>
-                    <p>Quantity<input type="number" name="item_quantity" min=1></p>
-                </label>
-                <label>
-                    <p><input type="file" name="item_photo"></p>
-                </label>
-                <p><input type="submit" value="Submit"></p>
-            </form>
-        </div>
-
-
-        <!-- View Items for Sale (Right) -->
-        <div class="shopping">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2> Welcome, {{ user.first_name }} {{ user.last_name }}</h2>
+                    <div class="image"><img class="profile" src="{{ user.image.url }}" alt=""></div>
+                </div>
+                <div class="col-sm-6">
+                    <form class="form" action="../../market/create" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if messages %}
+                            <ul class="messages">    
+                                {% for message in messages %}    
+                                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <label for="item_title">Item:</label>
+                        <input type="text" class="form-control" name='item_title'>
+                        <label for="item_description">Description:</label>
+                        <input type="textarea" class="form-control" name='item_description'>
+                        <label for="product_id">Price:</label>
+                        <input type="number" class="form-control" name="product_id" min="0.00" max="10000.00" step="0.01" name="product_id">                
+                        <label for="item_quantity">Quantity:</label>
+                        <input type="number" class="form-control" name="item_quantity" min=1>
+                        <label for="item_photo">Image:</label>
+                        <input type="file" alt=" " class="form-control" name="item_photo" accept="image/*"><br>
+                        <button type="submit" class="btn btn-primary px-4 float-right">Add Item</button>
+                    </form>
+                </div>
+            </div>
             <h2>Shopping</h2>
-            {% for item in items %}
-            <img src="{{ item.item_photo.url }}" height="100px">
-            <h4><label><a href="/market/{{item.id}}">{{ item.item_title }} </a></label></h4>
-            <p>${{ item.price }}</p>
-            <p> quantity {{ item.item_quantity }}</p>
-            <form action="/market/{{ item.id }}/add" method="POST">
-                {% csrf_token %}
-                <p>Quantity:<input type="number" name="item_quantity"></p>
-                <input type="submit" value="Add To Cart">
-            </form>
 
-            <!-- Delete / Edit item -->
-            {% if user.id == item.item_owner.id %}
-            <a href="/market/{{ item.id }}/edit"><button>Edit</button></a>
-            <form action="/market/{{item.id}}/delete" method="POST">
-                {% csrf_token %}
-                <input type="submit" value="Delete">
-            </form>
-            {% endif %}
-            {% endfor %}
+            <div class="row">
+                <div class="col-sm-12 shopping">
+                    {% for item in items %}
+                        <div class="item">
+                            <div class="pic"><img class="itempic" src="{{ item.item_photo.url }}"></div>
+                            <h4><a href="/market/{{item.id}}">{{ item.item_title }} </a></h4>
+                            <p><span class="bold">Price:</span> ${{ item.price }}</p>
+                            <form action="/market/{{ item.id }}/add" method="POST">
+                                {% csrf_token %}
+                                <p><span class="bold">Quantity: </span><input type="number" name="item_quantity"></p>
+                                <input class="shop btn btn-xs center btn-primary px-4" type="submit" value="Add To Cart">
+                            </form>
+                            <!-- Delete / Edit item -->
+                            {% if user.id == item.item_owner.id %}
+                                <a href="/market/{{ item.id }}/edit"><button class="btn btn-xs center shop btn-primary px-4">Edit</button></a>
+                                <form action="/market/{{item.id}}/delete" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" class="shop btn btn-xs btn-primary px-4 float:right" value="Delete">
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
+    </div>
 </body>
 
 </html>

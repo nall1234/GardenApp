@@ -37,25 +37,31 @@
             <div class="row">
                 <div class="col-sm-4 first">
                     <h3>Welcome, {{ user.first_name }}</h1>
-                    <div class="image"></div>
+                    <div class="image"><img class="profile" src="{{ user.image.url }}" alt=""></div>
                 </div>
                 <div class="col-sm-8">
                     <div class="marketplace">
-                        <h3>MarketPlace</h3>
-                        <div class="boxbox">
-                            <div class="box"></div>
-                            <div class="box"></div>
-                            <div class="box"></div>
-                            <div class="box"></div>
+                        <a href="../market"><h3>MarketPlace</h3></a>
+                        <div class="boxbox scroll">
+                            {% for item in items %}
+                                <div >
+                                    <div class="box"><img class="item_photo" src="{{ item.item_photo.url }}" alt=""></div>
+                                    <br>
+                                    <h5>{{ item.item_title }}</h5>
+                                    <p>${{ item.price }}</p>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="messages">
-                        <h3>Messages</h3>
-                        <div class="boxbox">
-                            <p>Message</p>
-                            <p>Message</p>
-                            <p>Message</p>
-                            <p>Message</p>
+                        <a href="../community"><h3>Messages</h3></a>
+                        <div class="boxbox scroll">
+                            {% for message in messages %}
+                                <div>
+                                    <p class="message">{{ message.message }}</p>
+                                    <h6>{{ message.message_creator.first_name }} {{message.message_creator.last_name}}</h6>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

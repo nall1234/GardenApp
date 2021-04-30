@@ -64,7 +64,7 @@ input[value="{{user.first_name}}"] {
 
 
 .btn {
-    background-color: #f0c3be;
+    background-color: #fffaef;
     border-color: #4e6d65;
     box-shadow: 2px 2px 2px#0c1f25;
     color: #0c1f25;
@@ -116,7 +116,6 @@ p {
 .image {
     width: 200px;
     height: 200px;
-    border: 1px solid black;
     margin-left: 60px;
     margin-top: -20px
 }

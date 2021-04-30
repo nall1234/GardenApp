@@ -12,10 +12,10 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         {% load static %}
-        <link rel="stylesheet" href="{% static 'CSS/profile.css' %}"> 
+
+        <link rel="stylesheet" href="{% static 'CSS/cart.css' %}"> 
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Rubik:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300&display=swap" rel="stylesheet">
+
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
     </head>
     <body>
@@ -35,34 +35,23 @@
                 </ul>
             </div>
         </div>
-        <h1>Shopping Cart</h1>
+
+        <div class="wrapper">
+            <h1>Shopping Cart</h1>
+            {% for item in order_items %}
+                    <h4>{{ item.cart_item.item_title }} </h4>
+                    <p><span class="bold">Description: </span>{{ item.cart_item.item_description }}</p>
+                    <p><span class="bold">Price: </span>${{ item.cart_item.price }}</p>
+                    <p><span class="bold">Quantity: </span>{{ item.cart_quantity }}</p>
+                    <br>     
+                    <form action="/market/{{ item.id }}/remove" method="POST">
+                        {% csrf_token %}
+                        <button type='submit' class='shop btn btn-xs center btn-primary px-4'>Delete from cart</button>
+                    </form><br>
+            {% endfor %}
+            <a href="/market"><button class="shop btn btn-xs center btn-primary px-4">Checkout</button></a>
+        </div>
         
-        {% for item in order_items %}           
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <td><img src="{{ item.cart_item.item_photo.url }}" height = "100px" alt=""></td>
-                <td><h4>{{ item.cart_item.item_title }} </h4></td>
-                <td> <p>${{ item.cart_item.price }}</p></td>
-                <td><p>Quantity: {{ item.cart_quantity }}</p></td>
-                <td><form action="/market/{{ item.id }}/remove" method="POST">
-                    {% csrf_token %}
-                    <button type='submit' class='btn btn-secondary btn-sm float-right'>delete from cart</button>
-                </form><br></td>
-            </tbody>
-        </table>
-        {% endfor %}
-        <form action="/market/checkout" method="POST">
-            {% csrf_token %}
-            <button type='submit' class='btn btn-secondary' >Checkout</button>
-        </form><br>
     </body>
     </html>
+  
