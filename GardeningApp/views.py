@@ -149,15 +149,23 @@ def delete_item(request, item_id):
     return redirect('/market')
 
 
-def my_cart(request):
+def my_cart(request): 
+    
     user =  User.objects.get(id= request.session['current_user'])
     all_orders = user.users_order.filter(is_ordered = False)
-    order = all_orders[0]
-    context = {
-        'user' : user,
-        "order_items" : order.items.all()
-    }
-    return render(request, 'cart.html', context)
+    if all_orders:
+        order = all_orders[0]
+        context = {
+            'user' : user,
+            "order_items" : order.items.all()
+        }
+        return render(request, 'cart.html', context)
+    else:
+        context = {
+            'user' : user,           
+        }
+        return render(request, 'cart.html', context)
+        
 
 #-----ADD TO CART-----
 def add_cart(request, item_id):    
@@ -195,16 +203,37 @@ def add_cart(request, item_id):
 
 
 #-----REMOVE FROM CART-----
-def remove_cart(request, item_id):
-    # item_to_delete = OrderItem.objects.filter(id=item_id)
-    # if item_to_delete.exists():
-    #     item_to_delete[0].delete()
-    # return redirect(request, '/market/cart')
-    pass
+def remove_cart(request, order_item_id):
+    user = User.objects.get(id= request.session['current_user'])
+    # find order
+    all_orders = user.users_order.filter(is_ordered = False)
+    current_order = all_orders[0] 
+    # find order item
+    order_item = OrderItem.objects.get(id = order_item_id)    
+    # find acutal item
+    item = order_item.cart_item
+    # find item quantity
+    quantity = order_item.cart_quantity
+    # delete order item
+    order_item.delete()
+    # add quantity
+    item.item_quantity = int(item.item_quantity) + int(quantity)
+    # save item
+    item.save()
+    # save order
+    current_order.save()
+    
+    return redirect('/market')
 
 #-----CHECKOUT-----
 def checkout(request):
-    pass
+    user = User.objects.get(id= request.session['current_user'])
+    # find order
+    all_orders = user.users_order.filter(is_ordered = False)
+    current_order = all_orders[0]
+    current_order.is_ordered = True
+    current_order.save()
+    return redirect('/market')
 
 
 # message board views 

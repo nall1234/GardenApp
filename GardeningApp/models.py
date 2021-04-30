@@ -67,7 +67,6 @@ class Item(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = ItemManager()
 
-
 #-----Order Items-----
 # refrences a specific item
 class OrderItem(models.Model):
