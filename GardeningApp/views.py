@@ -200,20 +200,31 @@ def add_cart(request, item_id):
             if current_order.items.filter(cart_item = item):
                 current_item = current_order.items.get(cart_item = item)
                 current_item.cart_quantity = int(current_item.cart_quantity) + int(quantity)
+
+                item.item_quantity = int(item.item_quantity) - int(quantity)
+                item.save()
                 current_item.save()
                 request.session['activities'].append('Added an item to cart')
                 request.session.modified = True
                 return redirect('/market')
             else:
                 current_order.items.add(order_item)
+                item.item_quantity = int(item.item_quantity) - int(quantity)
+                item.save()
+
         else:
             new_order = Order.objects.create(
                 owner = user
             )
             new_order.items.add(order_item)
+
             request.session['activities'].append('Added an item to cart')
             request.session.modified = True
-            new_order.save()    
+            new_order.save() 
+            item.item_quantity = int(item.item_quantity) - int(quantity)
+            item.save()
+
+
     return redirect('/market')
 
 
@@ -249,8 +260,11 @@ def checkout(request):
     current_order = all_orders[0]
     current_order.is_ordered = True
     current_order.save()
+
     request.session['activities'].append('Checked out')
     request.session.modified = True
+
+
     return redirect('/market')
 
 
@@ -278,8 +292,11 @@ def add_message(request):
         message = request.POST['message'],
         message_creator = User.objects.get(id= request.session['current_user'])
     )
+
     request.session['activities'].append('Posted a message')
     request.session.modified = True
+
+
     return redirect('/community')
 
 
@@ -299,11 +316,18 @@ def add_comment(request, id):
         comment_message = Message.objects.get(id =id),
         comment_creator = User.objects.get(id=request.session['current_user'])
     )
+
     request.session['activities'].append('Posted a comment')
     request.session.modified = True
+
+
     return redirect('/community')
 
 def delete_comment(request, comment_id):
     comment = Comment.objects.get(id= comment_id)
     comment.delete()
+
     return redirect('/community')
+
+   
+
