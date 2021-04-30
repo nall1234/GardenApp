@@ -188,16 +188,22 @@ def add_cart(request, item_id):
             if current_order.items.filter(cart_item = item):
                 current_item = current_order.items.get(cart_item = item)
                 current_item.cart_quantity = int(current_item.cart_quantity) + int(quantity)
+                item.item_quantity = int(item.item_quantity) - int(quantity)
+                item.save()
                 current_item.save()
                 return redirect('/market')
             else:
                 current_order.items.add(order_item)
+                item.item_quantity = int(item.item_quantity) - int(quantity)
+                item.save()
         else:
             new_order = Order.objects.create(
                 owner = user
             )
             new_order.items.add(order_item)
-            new_order.save()    
+            new_order.save()
+            item.item_quantity = int(item.item_quantity) - int(quantity)
+            item.save()    
     return redirect('/market')
 
 

@@ -36,28 +36,30 @@
             </div>
         </div>
         <h1>Shopping Cart</h1>
-        {% for item in order_items %}
-                
-                <h4>{{ item.cart_item.item_title }} </h4>
-                <p>${{ item.cart_item.price }}</p>
-                <p>Quantity: {{ item.cart_quantity }}</p>            
-                
-                <form action="/market/{{ item.id }}/remove" method="POST">
-                    {% csrf_token %}
-                    <button type='submit' class='btn btn-secondary btn-sm float-right'>delete from cart</button>
-                </form><br>
-                {% endfor %}
+        
+        {% for item in order_items %}           
         <table>
             <thead>
                 <tr>
-                    <th>Item title</th>
+                    <th></th>
+                    <th>Item</th>
+                    <th>Price</th>
                     <th>Quantity</th>
-                    <th>Delete</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
+                <td><img src="{{ item.cart_item.item_photo.url }}" height = "100px" alt=""></td>
+                <td><h4>{{ item.cart_item.item_title }} </h4></td>
+                <td> <p>${{ item.cart_item.price }}</p></td>
+                <td><p>Quantity: {{ item.cart_quantity }}</p></td>
+                <td><form action="/market/{{ item.id }}/remove" method="POST">
+                    {% csrf_token %}
+                    <button type='submit' class='btn btn-secondary btn-sm float-right'>delete from cart</button>
+                </form><br></td>
             </tbody>
         </table>
+        {% endfor %}
         <form action="/market/checkout" method="POST">
             {% csrf_token %}
             <button type='submit' class='btn btn-secondary' >Checkout</button>

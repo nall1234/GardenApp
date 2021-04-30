@@ -78,6 +78,7 @@
             <img src="{{ item.item_photo.url }}" height="100px">
             <h4><label><a href="/market/{{item.id}}">{{ item.item_title }} </a></label></h4>
             <p>${{ item.price }}</p>
+            <p> quantity {{ item.item_quantity }}</p>
             <form action="/market/{{ item.id }}/add" method="POST">
                 {% csrf_token %}
                 <p>Quantity:<input type="number" name="item_quantity"></p>
