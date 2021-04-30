@@ -43,11 +43,11 @@
                     <div class="marketplace">
                         <a href="../market"><h3>MarketPlace</h3></a>
                         <div class="boxbox scroll">
-                            {% for item in items %}
+                            {% for item in items  %}
                                 <div >
                                     <div class="box"><img class="item_photo" src="{{ item.item_photo.url }}" alt=""></div>
                                     <br>
-                                    <h5>{{ item.item_title }}</h5>
+                                    <h5><a href="/market/{{item.id}}">{{ item.item_title }}</a></h5>
                                     <p>${{ item.price }}</p>
                                 </div>
                             {% endfor %}
@@ -56,7 +56,7 @@
                     <div class="messages">
                         <a href="../community"><h3>Messages</h3></a>
                         <div class="boxbox scroll">
-                            {% for message in messages %}
+                            {% for message in messages  %}
                                 <div>
                                     <p class="message">{{ message.message }}</p>
                                     <h6>{{ message.message_creator.first_name }} {{message.message_creator.last_name}}</h6>

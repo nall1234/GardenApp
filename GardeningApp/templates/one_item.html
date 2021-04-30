@@ -36,6 +36,7 @@
             <h4>{{ one_item.item_title }}</h4>
             <p><span class="bold">Price:</span> ${{ one_item.price }}</p>
             <p><span class="bold">Posted by: </span>{{ one_item.item_owner.first_name }} {{ one_item.item_owner.last_name }}</p>
+            <p><span class="bold">Description:</span> {{ one_item.item_description }}</p>
 
             <form action="/market/{{ one_item.id }}/add" method="POST">
                 {% csrf_token %}
