@@ -37,6 +37,13 @@
         </div>
 
         <div class="wrapper">
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
             <h1>Shopping Cart</h1>
             {% for item in order_items %}
                     <h4>{{ item.cart_item.item_title }} </h4>
@@ -49,9 +56,8 @@
                         <button type='submit' class='shop btn btn-xs center btn-primary px-4'>Delete from cart</button>
                     </form><br>
             {% endfor %}
-            <a href="/market"><button class="shop btn btn-xs center btn-primary px-4">Checkout</button></a>
+            <a href="/market/checkout"><button class="shop btn btn-xs center btn-primary px-4">Checkout</button></a>
         </div>
         
     </body>
     </html>
-  
